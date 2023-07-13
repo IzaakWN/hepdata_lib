@@ -1,6 +1,7 @@
 """hepdata_lib main."""
 
 import os
+import re
 import shutil
 import tarfile
 import warnings
@@ -431,7 +432,7 @@ class Table(AdditionalResourceMixin):
         if not os.path.exists(outdir):
             os.makedirs(outdir)
 
-        shortname = self.name.lower().replace(" ", "_")
+        shortname = re.sub(r'[^\w\d-]','_',self.name.lower())
         outfile_path = os.path.join(
             outdir, f'{shortname}.yaml')
         with open(outfile_path, 'w') as outfile:
